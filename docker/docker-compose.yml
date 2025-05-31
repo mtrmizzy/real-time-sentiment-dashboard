@@ -5,8 +5,8 @@ services:
     image: postgres:14
     restart: always
     environment:
-      POSTGRES_USER: yourusername
-      POSTGRES_PASSWORD: yourpassword
+      POSTGRES_USER: mmoody
+      POSTGRES_PASSWORD: hO1pGW((5e2
       POSTGRES_DB: sentimentdb
     ports:
       - "5432:5432"

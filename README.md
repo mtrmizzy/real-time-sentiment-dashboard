@@ -17,7 +17,8 @@ Build an end-to-end **real-time sentiment analysis system** that:
 - **Streamlit** - interactive web dashboard
 - **Real-Time Pipeline** - simulate or build true stream (Kafka, Kinesis, or polling)
 - **Python** - scripting and model logic
-- *(Optional)* Kafka, PostgreSQL, or other real-time tools
+- **PostgreSQL** - store Reddit comments with sentiment labels for future querying, dashboards, or ML models
+- *(Optional)* Kafka, or other real-time tools
 
 ---
 
