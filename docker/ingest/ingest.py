@@ -1,0 +1,1 @@
+print("Ingest script is running inside Docker!")

@@ -1,0 +1,2 @@
+requests
+praw      # for Reddit API
