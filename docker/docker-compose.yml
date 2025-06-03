@@ -3,6 +3,7 @@ version: '3.8'
 services:
   db:
     image: postgres:14
+    container_name: reddit-db
     restart: always
     environment:
       POSTGRES_USER: mmoody
