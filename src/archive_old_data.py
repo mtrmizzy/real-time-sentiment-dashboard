@@ -24,13 +24,13 @@ conn = psycopg2.connect(
             )
 
 # Set export threshold (e.g., 7 days ago)
-threshold = datetime.now() - timedelta(days=7)
+threshold = datetime.now() - timedelta(days=0)
 
 # Query older data
-posts_query = "SELECT * FROM reddit_posts WHERE timestamp < %s;"
+posts_query = "SELECT * FROM reddit_posts WHERE ingested_at < %s;"
 posts_df = pd.read_sql(posts_query, conn, params=[threshold])
 
-comments_query = "SELECT * FROM reddit_comments WHERE timestamp < %s;"
+comments_query = "SELECT * FROM reddit_comments WHERE ingested_at < %s;"
 comments_df = pd.read_sql(comments_query, conn, params=[threshold])
 
 # Save as CSV
@@ -60,8 +60,8 @@ except Exception as e:
 
 # Optional: delete rows from DB after archiving
 with conn.cursor() as cur:
-    cur.execute("DELETE FROM reddit_posts WHERE timestamp < %s;", (threshold,))
-    cur.execute("DELETE FROM reddit_comments WHERE timestamp < %s;", (threshold,))
+    cur.execute("DELETE FROM reddit_posts WHERE ingested_at < %s;", (threshold,))
+    cur.execute("DELETE FROM reddit_comments WHERE ingested_at < %s;", (threshold,))
     conn.commit()
 
 conn.close()

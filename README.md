@@ -13,14 +13,16 @@ Build an end-to-end **real-time sentiment analysis system** that:
 ## **Tools and Technologies**
 - **Docker** - containerize all components
 - **dbt** - transform and document data in the warehouse
-- **AWS (S3, RDS, Lambda)** - cloud infrastructure and storage
+- **AWS (RDS)** - cloud infrastructure and storage
     - **EC2** - cloud VM
+    - **S3** - storing stream data periodically
 - **Streamlit** - interactive web dashboard
 - **Real-Time Pipeline** - simulate or build true stream (Kafka, Kinesis, or polling)
 - **Python** - scripting and model logic
 - **PostgreSQL** - store Reddit comments with sentiment labels for future querying, dashboards, or ML models
 - **PRAW** -
 - **psycopg2** - 
+- 
 - *(Optional)* Kafka, or other real-time tools
 
 ---
