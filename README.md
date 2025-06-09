@@ -13,12 +13,12 @@ Build an end-to-end **real-time sentiment analysis system** that:
 ## **Tools and Technologies**
 - **Docker** - containerize all components
 - **AWS (RDS)** - cloud infrastructure and storage
-    - **EC2** - cloud VM
+    - **EC2** - cloud Virtual Machine, remote instance
     - **S3** - storing stream data periodically
 - **Python** - scripting and model logic
 - **PostgreSQL** - store real-time data for future querying, dashboards, and ML models
     - **psycopg2** - PostgreSQL adapter for Python language
-- **Python Reddit API Wrapper (PRAW)** - scrapes data from subreddits
+- **Python Reddit API Wrapper (PRAW)** - dockerize ingestion script and scrape data from subreddits
 - **VADER** - A lexicon + rule-based sentiment analysis tool
 - **dbt** - transform and document data in the warehouse
 - **Streamlit** - interactive web dashboard
