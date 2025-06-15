@@ -24,7 +24,7 @@ conn = psycopg2.connect(
             )
 
 # Set export threshold (e.g., 7 days ago)
-threshold = datetime.now() - timedelta(days=7)
+threshold = datetime.now() - timedelta(days=0)
 
 # Query older data
 posts_query = "SELECT * FROM reddit_posts WHERE ingested_at < %s;"
