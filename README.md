@@ -20,10 +20,8 @@ Build an end-to-end **real-time sentiment analysis system** that:
     - **psycopg2** - PostgreSQL adapter for Python language
 - **Python Reddit API Wrapper (PRAW)** - dockerize ingestion script and scrape data from subreddits
 - **VADER** - A lexicon + rule-based sentiment analysis tool
-- **dbt** - transform and document data in the warehouse
 - **Streamlit** - interactive web dashboard
 - **Real-Time Pipeline** - simulate or build true stream (Kafka, Kinesis, or polling)
-- *(Optional)* Kafka, or other real-time tools
 
 ---
 
@@ -64,6 +62,7 @@ Build an end-to-end **real-time sentiment analysis system** that:
 - Create script to classify sentiment in real-time as data is ingested to PostgreSQL DB
     - Store sentiment result immediately in DB
 - Create MLP neural network model to classify positive neutral negative sentiments in posts and comments
+-  **dbt** - transform and document data in the warehouse
 - Live Deployment URL (when Streamlit dashboard is deployed)
 - Screenshots or GIFs of the dashboard
 - Setup Instructions (for running locally or in Docker)
