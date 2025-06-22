@@ -1,68 +1,105 @@
-# **Cloud Computing Project: Real-Time Sentiment Analysis Dashboard**
+# **Real-Time Sentiment Analysis Dashboard (with Custon Neural Network Classifier)**
 
-## **Project Goal**
-Build an end-to-end **real-time sentiment analysis system** that:
-- Ingests live text data from a public API (e.g., Twitter or Reddit)
-- Applies sentiment analysis using a lightweight model
-- Transforms and stores the data
-- Visualizes insights on a responsive **Streamlit dashboard**
-- Is fully containerized and deployed to **AWS**
+## **Project Overview**
+This project is an end-to-end **real-time sentiment analysis pipeline** that ingests Reddit data, stores structured insights in PostgreSQL, applies deep learning classification, and visualizes everything on a responsive **Streamlit dashboard**.
+
+What started with rule-based VADER analysis evolved into a **custom-trained MLP classifier**, built using PyTorch and powered by an autoencoder for feature compression.
+
+---
+
+## **Objectives**
+- Ingest real-time or simulated Reddit comments/posts using PRAW
+- Preprocess and store incoming text data in PostgreSQL and AWS S3
+- Apply sentiment classification via:
+    - VADER (baseline)
+    - **MLP Neural Network** (trained on labeled Reddit data)
+- Build a Streamlit dashboard to visualize sentiment trends
+- Deploy all components using Docker
+- Deploy pipeline and dashboard to AWS (EC2, S3)
 
 ---
 
 ## **Tools and Technologies**
-- **Docker** - containerize all components
-- **AWS (RDS)** - cloud infrastructure and storage
-    - **EC2** - cloud Virtual Machine, remote instance
-    - **S3** - storing stream data periodically
-- **Python** - scripting and model logic
-- **PostgreSQL** - store real-time data for future querying, dashboards, and ML models
-    - **psycopg2** - PostgreSQL adapter for Python language
-- **Python Reddit API Wrapper (PRAW)** - dockerize ingestion script and scrape data from subreddits
-- **VADER** - A lexicon + rule-based sentiment analysis tool
-- **Streamlit** - interactive web dashboard
-- **Real-Time Pipeline** - simulate or build true stream (Kafka, Kinesis, or polling)
+
+| Category           | Tools                             |
+| ------------------ | --------------------------------- |
+| **Data Ingestion** | PRAW, Python                      |
+| **Processing**     | Pandas, Scikit-learn, TF-IDF      |
+| **Modeling**       | PyTorch (MLP, Autoencoder), VADER |
+| **Visualization**  | Streamlit                         |
+| **Storage**        | PostgreSQL, AWS S3                |
+| **Deployment**     | Docker, AWS EC2 / S3              |
 
 ---
 
-## **High-level architecture**
+## **Deep Learning Classifier**
+A PyTorch-based **multiclass sentiment classifier** was trained on labeled Reddit comments using:
+- **TF-IDF** vectorization with `max_features=1000`
+- **Autoencoder** for dimensionality reduction
+- **MLP classifier** with 3 hidden layers + dropout
+- **Weighted cross-entropy loss** for class imbalance
+- Tracked training metrics and F1-scores across 75 epochs
+
+Final Model Performance:
+| Class        | F1-Score |
+| ------------ | -------- |
+| Negative     | 0.62     |
+| Neutral      | 0.70     |
+| Positive     | 0.70     |
+| **Accuracy** | **67%**  |
+
+---
+
+## **Architecture Overview**
 ```text
-[API Source]
+[Reddit API]
     ↓
-[Ingestion Script (Docker)]
+[PRAW Ingestion Script (Docker)]
     ↓
-[Transfer raw data to AWS S3]
+[Structured Data Store (PostgreSQL) in EC2 cloud instance]
     ↓
-[Sentiment Analysis Script]
+[AWS S3]
     ↓
-[Structured Data Store (PostgreSQL)]
-    ↓
-[dbt Transformations]
+[Sentiment Analysis Classifier (VADER + MLP)]
     ↓
 [Streamlit Dashboard (Docker)]
 ```
 
-## **Success Criteria**
-- Collect and stream data from a public API
-- Run a real-time or simulated ingestion process
-- Store raw + processed data in AWS (S3 and/or RDS)
-- Apply a basic sentiment analysis model (e.g., VADER)
-- Use dbt to transform and clean sentiment data
-- Build and deploy an interactive Streamlit dashboard
-- Deploy entire stack using Docker and AWS (ECS/EC2 or Lambda)
+---
+
+## **Core Features***
+- Live Reddit ingestion
+- Real-time sentiment labeling (comments and posts)
+- Custom neural network with TF-IDF + autoencoder
+- Saved and reusable model weights + training curves
+- Interactive visualizations and dashboards
+
+---
 
 ## **Stretch Goals**
-- Stream with Kafka or Kinesis instead of polling
-- Train and deploy my own sentiment classifier
-- Deploy model using AWS Lambda + API Gateway
-- Add logging, error tracking, or retry logic
+- Deploy model via AWS Lambda + API Gateway
+- Real-time stream processing with Kafka or Kinesis
+- Add live model inference into ingestion pipeline
+- Deploy dashboard publicly and share demo URL
+- Transform and document data using dbt
+
+---
+
+## Data Visualizations
+
+### MLP Loss Over Time
+![MLP Loss Curve](figures/mlp_loss_curve.png)
+
+### Accuracy Over Time Plot
+![MLP Accuracy Over Time](figures/mlp_accuracy_plot.png)
+
+### Confusion Matrix Heatmap
+![Confusion Matrix](figures/mlp_confusion_matrix.png)
+
+### Class-wise F1 Scores
+![Class-wise F1 Scores](figures/mlp_class_f1_scores.png)
 
 
-### **Potential Additions to Project:**
-- Create script to classify sentiment in real-time as data is ingested to PostgreSQL DB
-    - Store sentiment result immediately in DB
-- Create MLP neural network model to classify positive neutral negative sentiments in posts and comments
--  **dbt** - transform and document data in the warehouse
-- Live Deployment URL (when Streamlit dashboard is deployed)
-- Screenshots or GIFs of the dashboard
-- Setup Instructions (for running locally or in Docker)
+## Final Steps
+- Finish work on Streamlit Dashboard
+- Add link to Sreamlit Dashboard to README.md
