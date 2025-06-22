@@ -1,4 +1,4 @@
-# **Real-Time Sentiment Analysis Dashboard (with Custon Neural Network Classifier)**
+# **Real-Time Sentiment Analysis Dashboard (with Custom Neural Network Classifier)**
 
 ## **Project Overview**
 This project is an end-to-end **real-time sentiment analysis pipeline** that ingests Reddit data, stores structured insights in PostgreSQL, applies deep learning classification, and visualizes everything on a responsive **Streamlit dashboard**.
