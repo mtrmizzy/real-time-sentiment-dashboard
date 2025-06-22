@@ -1,13 +1,13 @@
 # **Real-Time Sentiment Analysis Dashboard (with Custom Neural Network Classifier)**
 
-## **Project Overview**
+## ** 🧠 Project Overview**
 This project is an end-to-end **real-time sentiment analysis pipeline** that ingests Reddit data, stores structured insights in PostgreSQL, applies deep learning classification, and visualizes everything on a responsive **Streamlit dashboard**.
 
 What started with rule-based VADER analysis evolved into a **custom-trained MLP classifier**, built using PyTorch and powered by an autoencoder for feature compression.
 
 ---
 
-## **Objectives**
+## ** 🎯 Objectives**
 - Ingest real-time or simulated Reddit comments/posts using PRAW
 - Preprocess and store incoming text data in PostgreSQL and AWS S3
 - Apply sentiment classification via:
@@ -19,7 +19,23 @@ What started with rule-based VADER analysis evolved into a **custom-trained MLP 
 
 ---
 
-## **Tools and Technologies**
+## 📊 **Data Collection & Motivation**
+Reddit comments were collected in real-time during a culturally and socially active week to ensure sentiment diversity and class balance. I selected three subreddits based on topical relevance and emotional tone:
+
+- **r/gaming**  
+  Selected during the **Summer Games Fest**, a time when Reddit users actively discuss trailers, announcements, and reactions. This provided a rich source of **passionate, hype-driven, and sometimes critical** sentiment around game content.
+
+- **r/news**  
+  Captured during a week of high-profile events, including **protests in Los Angeles against ICE** and a viral **social media dispute between Donald Trump and Elon Musk**. This subreddit helped supply **polarizing or intense** sentiment data relevant to current events.
+
+- **r/Showerthoughts**  
+  Chosen to inject **balance** into the dataset by including a subreddit known for **lighthearted, introspective, or neutral-toned** content. This helped prevent skew toward overly negative sentiment from the other subreddits.
+
+Together, these sources offered a **broad emotional range**—ideal for training a **multiclass sentiment classifier**.
+
+---
+
+## ** 🛠️ Tools and Technologies**
 
 | Category           | Tools                             |
 | ------------------ | --------------------------------- |
@@ -32,7 +48,7 @@ What started with rule-based VADER analysis evolved into a **custom-trained MLP 
 
 ---
 
-## **Deep Learning Classifier**
+## ** 🤖 Deep Learning Classifier**
 A PyTorch-based **multiclass sentiment classifier** was trained on labeled Reddit comments using:
 - **TF-IDF** vectorization with `max_features=1000`
 - **Autoencoder** for dimensionality reduction
@@ -50,7 +66,7 @@ Final Model Performance:
 
 ---
 
-## **Architecture Overview**
+## ** 🗺️ Architecture Overview**
 ```text
 [Reddit API]
     ↓
@@ -67,7 +83,7 @@ Final Model Performance:
 
 ---
 
-## **Core Features**
+## ** 🚀 Core Features**
 - Live Reddit ingestion
 - Real-time sentiment labeling (comments and posts)
 - Custom neural network with TF-IDF + autoencoder
@@ -76,7 +92,7 @@ Final Model Performance:
 
 ---
 
-## **Stretch Goals**
+## ** 🌱 Stretch Goals**
 - Deploy model via AWS Lambda + API Gateway
 - Real-time stream processing with Kafka or Kinesis
 - Add live model inference into ingestion pipeline
@@ -85,7 +101,7 @@ Final Model Performance:
 
 ---
 
-## Data Visualizations
+## ** 📈 Data Visualizations**
 
 ### MLP Loss Over Time
 ![MLP Loss Curve](figures/mlp_loss_curve.png)
@@ -100,6 +116,6 @@ Final Model Performance:
 ![Class-wise F1 Scores](figures/mlp_class_f1_scores.png)
 
 
-## Final Steps
+## ** ✅ Final Steps**
 - Finish work on Streamlit Dashboard
 - Add link to Streamlit Dashboard to README.md
