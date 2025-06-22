@@ -1,1 +1,19 @@
 .env
+
+# Ignore model files
+*.pth
+*.pt
+
+# Ignore training metric logs
+*.json
+
+# Ignore notebook Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore Python cache
+__pycache__/
+*.py[cod]
+
+# Ignore virtual environments
+env/
+venv/
