@@ -38,7 +38,7 @@ A PyTorch-based **multiclass sentiment classifier** was trained on labeled Reddi
 - **Autoencoder** for dimensionality reduction
 - **MLP classifier** with 3 hidden layers + dropout
 - **Weighted cross-entropy loss** for class imbalance
-- Tracked training metrics and F1-scores across 75 epochs
+- Tracked training loss, accuracy, and class-wise F1-scores over 75 epochs
 
 Final Model Performance:
 | Class        | F1-Score |
@@ -67,7 +67,7 @@ Final Model Performance:
 
 ---
 
-## **Core Features***
+## **Core Features**
 - Live Reddit ingestion
 - Real-time sentiment labeling (comments and posts)
 - Custom neural network with TF-IDF + autoencoder
@@ -102,4 +102,4 @@ Final Model Performance:
 
 ## Final Steps
 - Finish work on Streamlit Dashboard
-- Add link to Sreamlit Dashboard to README.md
+- Add link to Streamlit Dashboard to README.md
