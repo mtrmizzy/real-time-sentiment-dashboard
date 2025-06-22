@@ -1,13 +1,13 @@
 # **Real-Time Sentiment Analysis Dashboard (with Custom Neural Network Classifier)**
 
-## ** 🧠 Project Overview**
+## 🧠 **Project Overview**
 This project is an end-to-end **real-time sentiment analysis pipeline** that ingests Reddit data, stores structured insights in PostgreSQL, applies deep learning classification, and visualizes everything on a responsive **Streamlit dashboard**.
 
 What started with rule-based VADER analysis evolved into a **custom-trained MLP classifier**, built using PyTorch and powered by an autoencoder for feature compression.
 
 ---
 
-## ** 🎯 Objectives**
+## 🎯 **Objectives**
 - Ingest real-time or simulated Reddit comments/posts using PRAW
 - Preprocess and store incoming text data in PostgreSQL and AWS S3
 - Apply sentiment classification via:
@@ -35,7 +35,7 @@ Together, these sources offered a **broad emotional range**—ideal for training
 
 ---
 
-## ** 🛠️ Tools and Technologies**
+## 🛠️ **Tools and Technologies**
 
 | Category           | Tools                             |
 | ------------------ | --------------------------------- |
@@ -48,7 +48,7 @@ Together, these sources offered a **broad emotional range**—ideal for training
 
 ---
 
-## ** 🤖 Deep Learning Classifier**
+## 🤖 **Deep Learning Classifier**
 A PyTorch-based **multiclass sentiment classifier** was trained on labeled Reddit comments using:
 - **TF-IDF** vectorization with `max_features=1000`
 - **Autoencoder** for dimensionality reduction
@@ -66,7 +66,7 @@ Final Model Performance:
 
 ---
 
-## ** 🗺️ Architecture Overview**
+## 🗺️ **Architecture Overview**
 ```text
 [Reddit API]
     ↓
@@ -83,7 +83,7 @@ Final Model Performance:
 
 ---
 
-## ** 🚀 Core Features**
+## 🚀 **Core Features**
 - Live Reddit ingestion
 - Real-time sentiment labeling (comments and posts)
 - Custom neural network with TF-IDF + autoencoder
@@ -92,7 +92,7 @@ Final Model Performance:
 
 ---
 
-## ** 🌱 Stretch Goals**
+## 🌱 **Stretch Goals**
 - Deploy model via AWS Lambda + API Gateway
 - Real-time stream processing with Kafka or Kinesis
 - Add live model inference into ingestion pipeline
@@ -101,7 +101,7 @@ Final Model Performance:
 
 ---
 
-## ** 📈 Data Visualizations**
+## 📈 **Data Visualizations**
 
 ### MLP Loss Over Time
 ![MLP Loss Curve](figures/mlp_loss_curve.png)
@@ -116,6 +116,6 @@ Final Model Performance:
 ![Class-wise F1 Scores](figures/mlp_class_f1_scores.png)
 
 
-## ** ✅ Final Steps**
+## ✅ **Final Steps**
 - Finish work on Streamlit Dashboard
 - Add link to Streamlit Dashboard to README.md
