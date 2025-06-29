@@ -17,3 +17,12 @@ __pycache__/
 # Ignore virtual environments
 env/
 venv/
+
+# Ignore saved model weights
+*.safetensors
+*.bin
+*.pt
+
+# Ignore full model folders
+src/bert_classification_model/
+src/results/
