@@ -1,6 +1,6 @@
 # **Real-Time Sentiment Analysis Dashboard (with Custom Neural Network Classifier)**
 
-## 🧠 **Project Overview**
+## **Project Overview**
 This project is an end-to-end **real-time sentiment analysis pipeline** that ingests Reddit data, stores structured insights in PostgreSQL, applies deep learning classification, and visualizes everything on a responsive **Streamlit dashboard**.
 
 What started with rule-based VADER analysis evolved into a **custom-trained MLP classifier**, built using PyTorch and powered by an autoencoder for feature compression.
@@ -56,13 +56,51 @@ A PyTorch-based **multiclass sentiment classifier** was trained on labeled Reddi
 - **Weighted cross-entropy loss** for class imbalance
 - Tracked training loss, accuracy, and class-wise F1-scores over 75 epochs
 
-Final Model Performance:
+MLP Classifier Model Performance:
 | Class        | F1-Score |
 | ------------ | -------- |
 | Negative     | 0.62     |
 | Neutral      | 0.70     |
 | Positive     | 0.70     |
 | **Accuracy** | **67%**  |
+
+---
+
+## 🧠 **Transformer-Based Modeling**
+### Fine-Tuned BERT Classifier (VADER-Labeled Reddit Data)
+To push beyond traditional architectures, I fine-tuned a BERT base model (`bert-base-uncased`) on ~180k Reddit comments labeled using VADER. The model was trained using Hugging Face’s `Trainer` with GPU acceleration and mixed precision (fp16).
+**Training Setup:**
+
+- Tokenized using `BertTokenizerFast`
+
+- Trained using `TrainingArguments` with `gradient_accumulation`, `fp16`, and `per_device_batch_size=32`
+
+- Evaluated with macro and weighted F1
+
+- Achieved 95.3% accuracy on the validation set
+
+**BERT Classifier Performance:**
+| Metric        | Value |
+| ------------- | ----- |
+| Accuracy      | 95.3% |
+| F1 (Macro)    | 0.95  |
+| F1 (Weighted) | 0.95  |
+
+This performance far exceeded all classical and MLP models, showcasing the power of deep language representations for sentiment classification.
+
+### **RoBERTa Sentiment Labeler (`cardiffnlp/twitter-roberta-base-sentiment`)**
+To explore **weak supervision**, I replaced VADER with a pretrained 3-class BERT model. This enabled me to:
+- Automatically label both comments and posts with `"negative"`, `"neutral"`, or `"positive"` sentiment
+- Use those labels to retrain Logistic Regression, Random Forest, and MLP models
+
+**Model Performance between VADER and RoBERTa Labeled Data:**
+| Model         | Macro F1 (VADER) | Macro F1 (RoBERTa) |
+| ------------- | ---------------- | ------------------ |
+| Logistic Reg. | 0.74             | 0.65               |
+| Random Forest | 0.74             | 0.62               |
+| Custom MLP    | 0.70             | 0.63               |
+
+Although performance dropped slightly when using RoBERTa-labeled data, the results confirmed that RoBERTa can still be used effectively as a weak-supervision tool. The experience also validated the superior performance of my fine-tuned BERT classifier, which achieved the highest scores overall.
 
 ---
 
@@ -76,7 +114,7 @@ Final Model Performance:
     ↓
 [AWS S3]
     ↓
-[Sentiment Analysis Classifier (VADER + MLP)]
+[Sentiment Analysis Classifier (VADER + BERT)]
     ↓
 [Streamlit Dashboard (Docker)]
 ```
@@ -88,6 +126,7 @@ Final Model Performance:
 - Real-time sentiment labeling (comments and posts)
 - Custom neural network with TF-IDF + autoencoder
 - Saved and reusable model weights + training curves
+- Advanced Transformer-based Modeling
 - Interactive visualizations and dashboards
 
 ---
@@ -115,6 +154,15 @@ Final Model Performance:
 ### Class-wise F1 Scores
 ![Class-wise F1 Scores](figures/mlp_class_f1_scores.png)
 
+---
+
+## 📌 **Insights & Takeaways**
+- **"Traditional models such as Logistic Regression performed will with VADER labels."**
+- **"Replacing VADER with RoBERTa sentiment labeling revealed the challenges of weak supervision."**
+- **"Fine-tuning BERT directly on VADER-labeled Reddit data delivered state-of-the-art results, reaching 95% accuracy."**
+- **"This project demonstrates not just pipeline engineering, but also *how data quality and model architecture impact real-world performance*."**
+
+---
 
 ## ✅ **Final Steps**
 - Finish work on Streamlit Dashboard
