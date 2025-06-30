@@ -147,7 +147,7 @@ with tabs[5]:
     # Load your fine-tuned BERT model
     @st.cache_resource
     def load_bert_model():
-        model = BertForSequenceClassification.from_pretrained("src/bert_classification_model")
+        model = BertForSequenceClassification.from_pretrained("../src/bert_classification_model")
         tokenizer = BertTokenizerFast.from_pretrained("bert-base-uncased")
         model.eval()
         return tokenizer, model
