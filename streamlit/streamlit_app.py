@@ -13,7 +13,7 @@ st.sidebar.title("🔧 Dashboard Controls")
 
 data_source = st.sidebar.radio(
     "Select Data Type:",
-    ["Posts", "Comments"],
+    ["Comments", "Posts"],
     index=0
 )
 
@@ -24,10 +24,53 @@ selected_subreddit = st.sidebar.selectbox(
 
 
 # Create Tabs
-tabs = st.tabs(["📊 Sentiment Distribution", "☁️ Wordclouds", "📈 BERT Classifier Performance", "🤖 MLP Performance", "🛠️ Classic ML Model Performance", "🔮 Real-Time Predictor"])
+tabs = st.tabs(["🔮 Real-Time Predictor", "📊 Sentiment Distribution", "☁️ Wordclouds", "📈 BERT Classifier Performance", "🤖 MLP Performance", "🛠️ Classic ML Model Performance"])
 
-# ---- TAB 1: Sentiment Distribution ----
+# ---- TAB 1: Real-Time Predictor ----
 with tabs[0]:
+    from transformers import BertTokenizerFast, BertForSequenceClassification
+    import torch
+
+    # Load your fine-tuned BERT model
+    @st.cache_resource
+    def load_bert_model():
+        model = BertForSequenceClassification.from_pretrained(
+            "src/bert_classification_model",
+            num_labels=3
+        )
+        tokenizer = BertTokenizerFast.from_pretrained("bert-base-uncased")
+        model.eval()
+        return tokenizer, model
+
+    tokenizer, model = load_bert_model()
+
+    # Add UI
+    st.header("🔮 Real-Time Reddit Sentiment Predictor")
+    st.write("Enter any Reddit comment or post and get an instant sentiment prediction using the fine-tuned BERT model.")
+
+    user_input = st.text_area("Enter your comment/post text here:")
+
+    if st.button("Predict Sentiment"):
+        if not user_input.strip():
+            st.warning("Please enter some text to analyze.")
+        else:
+            inputs = tokenizer(
+                user_input,
+                return_tensors="pt",
+                truncation=True,
+                padding=True,
+                max_length=512
+            )
+
+            with torch.no_grad():
+                logits = model(**inputs).logits
+                prediction = torch.argmax(logits, dim=1).item()
+
+            label_map = {0: "Negative", 1: "Neutral", 2: "Positive"}
+            st.success(f"Predicted Sentiment: **{label_map[prediction]}**")
+
+# ---- TAB 2: Sentiment Distribution ----
+with tabs[1]:
     st.header("Sentiment Distribution")
     st.write("Distribution of sentiment across collected Reddit posts and comments.")
 
@@ -50,8 +93,8 @@ with tabs[0]:
     dist_img = Image.open("figures/top_words_contributing_to_sentiment.png")
     st.image(dist_img, caption="Top Words Contributing to Sentiment", use_container_width=True)
 
-# ---- TAB 2: Wordclouds ----
-with tabs[1]:
+# ---- TAB 3: Wordclouds ----
+with tabs[2]:
     st.header("Wordclouds")
     st.write("Most frequent words by sentiment class and subreddit.")
 
@@ -96,8 +139,8 @@ with tabs[1]:
     else:
         st.info('Wordclouds are currently only available for comments.')
 
-# ---- TAB 3: BERT Classifier Performance ----
-with tabs[2]:
+# ---- TAB 4: BERT Classifier Performance ----
+with tabs[3]:
     st.header("BERT Performance")
     st.write("Confusion Matrix and F1 Scores.")
 
@@ -111,8 +154,8 @@ with tabs[2]:
         st.subheader("F1 Scores")
         st.image("figures/bert_f1_scores_sentiment.png", use_container_width=True)
 
-# ---- TAB 4: MLP Performance ----
-with tabs[3]:
+# ---- TAB 5: MLP Performance ----
+with tabs[4]:
     st.header("Custom MLP Performance")
     st.write("Model accuracy, loss, confusion matrix, and F1 scores.")
 
@@ -128,8 +171,8 @@ with tabs[3]:
     st.subheader("Class-wise F1 Scores")
     st.image("figures/mlp_class_f1_scores.png", use_container_width=True)
 
-# ---- TAB 5: Classic ML Model Performance ----
-with tabs[4]:
+# ---- TAB 6: Classic ML Model Performance ----
+with tabs[5]:
     st.header("Model Performance")
     st.write("Logistic Regression & Random Forest Confusion Matrix plots.")
 
@@ -138,46 +181,3 @@ with tabs[4]:
 
     st.subheader("Random Forest Confusion Matrix")
     st.image("figures/random_forest_confusion_matrix.png", use_container_width=True)
-
-# ---- TAB 6: Real-Time Predictor ----
-with tabs[5]:
-    from transformers import BertTokenizerFast, BertForSequenceClassification
-    import torch
-
-    # Load your fine-tuned BERT model
-    @st.cache_resource
-    def load_bert_model():
-        model = BertForSequenceClassification.from_pretrained(
-            "src/bert_classification_model",
-            num_labels=3
-        )
-        tokenizer = BertTokenizerFast.from_pretrained("bert-base-uncased")
-        model.eval()
-        return tokenizer, model
-
-    tokenizer, model = load_bert_model()
-
-    # Add UI
-    st.header("🔮 Real-Time Reddit Sentiment Predictor")
-    st.write("Enter any Reddit comment or post and get an instant sentiment prediction using the fine-tuned BERT model.")
-
-    user_input = st.text_area("Enter your comment/post text here:")
-
-    if st.button("Predict Sentiment"):
-        if not user_input.strip():
-            st.warning("Please enter some text to analyze.")
-        else:
-            inputs = tokenizer(
-                user_input,
-                return_tensors="pt",
-                truncation=True,
-                padding=True,
-                max_length=512
-            )
-
-            with torch.no_grad():
-                logits = model(**inputs).logits
-                prediction = torch.argmax(logits, dim=1).item()
-
-            label_map = {0: "Negative", 1: "Neutral", 2: "Positive"}
-            st.success(f"Predicted Sentiment: **{label_map[prediction]}**")
