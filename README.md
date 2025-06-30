@@ -12,7 +12,8 @@ What started with rule-based VADER analysis evolved into a **custom-trained MLP 
 - Preprocess and store incoming text data in PostgreSQL and AWS S3
 - Apply sentiment classification via:
     - VADER (baseline)
-    - **MLP Neural Network** (trained on labeled Reddit data)
+    - MLP Neural Network (trained on labeled Reddit data)
+    - BERT Neural Network Classifier
 - Build a Streamlit dashboard to visualize sentiment trends
 - Deploy all components using Docker
 - Deploy pipeline and dashboard to AWS (EC2, S3)
@@ -41,7 +42,7 @@ Together, these sources offered a **broad emotional range**—ideal for training
 | ------------------ | --------------------------------- |
 | **Data Ingestion** | PRAW, Python                      |
 | **Processing**     | Pandas, Scikit-learn, TF-IDF      |
-| **Modeling**       | PyTorch (MLP, Autoencoder), VADER |
+| **Modeling**       | BERT, PyTorch (MLP, Autoencoder), VADER |
 | **Visualization**  | Streamlit                         |
 | **Storage**        | PostgreSQL, AWS S3                |
 | **Deployment**     | Docker, AWS EC2 / S3              |
