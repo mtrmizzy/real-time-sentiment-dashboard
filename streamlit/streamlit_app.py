@@ -45,10 +45,10 @@ with tabs[0]:
     tokenizer, model = load_bert_model()
 
     # Add UI
-    st.header("🔮 Real-Time Reddit Sentiment Predictor")
-    st.write("Enter any Reddit comment or post and get an instant sentiment prediction using the fine-tuned BERT model.")
+    st.header("🔮 Real-Time Sentiment Predictor")
+    st.write("Enter any message and get an instant sentiment prediction using my fine-tuned BERT model.")
 
-    user_input = st.text_area("Enter your comment/post text here:")
+    user_input = st.text_area("Enter your message text here:")
 
     if st.button("Predict Sentiment"):
         if not user_input.strip():
