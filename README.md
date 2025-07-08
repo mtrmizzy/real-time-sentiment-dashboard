@@ -1,5 +1,9 @@
 # **Real-Time Sentiment Analysis Dashboard (with Custom Neural Network Classifier)**
 
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://real-time-sentiment-dashboard.streamlit.app/)
+
+🟢 **Live App:** [real-time-sentiment-dashboard.streamlit.app](https://real-time-sentiment-dashboard.streamlit.app/)
+
 ## **Project Overview**
 This project is an end-to-end **real-time sentiment analysis pipeline** that ingests Reddit data, stores structured insights in PostgreSQL, applies deep learning classification, and visualizes everything on a responsive **Streamlit dashboard**.
 
@@ -16,7 +20,7 @@ What started with rule-based VADER analysis evolved into a **custom-trained MLP 
     - BERT Neural Network Classifier
 - Build a Streamlit dashboard to visualize sentiment trends
 - Deploy all components using Docker
-- Deploy pipeline and dashboard to AWS (EC2, S3)
+- Deploy pipeline to AWS (EC2, S3)
 
 ---
 
@@ -69,25 +73,28 @@ MLP Classifier Model Performance:
 
 ## 🧠 **Transformer-Based Modeling**
 ### Fine-Tuned BERT Classifier (VADER-Labeled Reddit Data)
-To push beyond traditional architectures, I fine-tuned a BERT base model (`bert-base-uncased`) on ~180k Reddit comments labeled using VADER. The model was trained using Hugging Face’s `Trainer` with GPU acceleration and mixed precision (fp16).
-**Training Setup:**
+To push sentiment classification performance to the next level, I fine-tuned a BERT-based deep learning model using Hugging Face Transformers. This model achieved **95% accuracy** on validation data, significantly outperforming traditional models and serving as the final predictor for real-time inputs.
 
-- Tokenized using `BertTokenizerFast`
+**Key Highlights:**
+- Model: `bert-base-uncased` fine-tuned for multiclass sentiment
+- Labels: Negative (0), Neutral (1), Positive (2)
+- Tokenization: BERT's WordPiece tokenizer (max length: 512)
+- Trained using Hugging Face `Trainer` API with `fp16` mixed precision for speed
+- Exported and deployed in Streamlit with real-time inference support
 
-- Trained using `TrainingArguments` with `gradient_accumulation`, `fp16`, and `per_device_batch_size=32`
+**Real-Time Predictor Feature:**
+- Accessible in the first tab of the Streamlit dashboard
+- Accepts user-entered text and returns instant sentiment prediction
+- Powered by the trained BERT model hosted in the app
 
-- Evaluated with macro and weighted F1
+**Final Model Performance:**
+| Metric        | Score     |
+|---------------|-----------|
+| Accuracy      | 95.3%     |
+| F1 (Macro)    | 0.95      |
+| F1 (Weighted) | 0.95      |
 
-- Achieved 95.3% accuracy on the validation set
-
-**BERT Classifier Performance:**
-| Metric        | Value |
-| ------------- | ----- |
-| Accuracy      | 95.3% |
-| F1 (Macro)    | 0.95  |
-| F1 (Weighted) | 0.95  |
-
-This performance far exceeded all classical and MLP models, showcasing the power of deep language representations for sentiment classification.
+This model is now integrated as the **primary inference engine** for the real-time Reddit sentiment dashboard.
 
 ### **RoBERTa Sentiment Labeler (`cardiffnlp/twitter-roberta-base-sentiment`)**
 To explore **weak supervision**, I replaced VADER with a pretrained 3-class BERT model. This enabled me to:
@@ -117,7 +124,7 @@ Although performance dropped slightly when using RoBERTa-labeled data, the resul
     ↓
 [Sentiment Analysis Classifier (VADER + BERT)]
     ↓
-[Streamlit Dashboard (Docker)]
+[Streamlit Dashboard]
 ```
 
 ---
@@ -136,7 +143,6 @@ Although performance dropped slightly when using RoBERTa-labeled data, the resul
 - Deploy model via AWS Lambda + API Gateway
 - Real-time stream processing with Kafka or Kinesis
 - Add live model inference into ingestion pipeline
-- Deploy dashboard publicly and share demo URL
 - Transform and document data using dbt
 
 ---
@@ -158,13 +164,8 @@ Although performance dropped slightly when using RoBERTa-labeled data, the resul
 ---
 
 ## 📌 **Insights & Takeaways**
-- **"Traditional models such as Logistic Regression performed will with VADER labels."**
-- **"Replacing VADER with RoBERTa sentiment labeling revealed the challenges of weak supervision."**
-- **"Fine-tuning BERT directly on VADER-labeled Reddit data delivered state-of-the-art results, reaching 95% accuracy."**
-- **"This project demonstrates not just pipeline engineering, but also *how data quality and model architecture impact real-world performance*."**
-
----
-
-## ✅ **Final Steps**
-- Finish work on Streamlit Dashboard
-- Add link to Streamlit Dashboard to README.md
+- **Traditional models such as Logistic Regression performed well with VADER labels.**
+- **Replacing VADER with RoBERTa sentiment labeling revealed the challenges of weak supervision.**
+- **Fine-tuning BERT directly on VADER-labeled Reddit data delivered state-of-the-art results, reaching 95% accuracy.**
+- **Gained hands-on experience building and deploying a fully interactive Streamlit dashboard, complete with data visualizations and a real-time sentiment prediction tool powered by my fine-tuned BERT model.**
+- **This project demonstrates not just pipeline engineering, but also *how data quality and model architecture impact real-world performance*.**
